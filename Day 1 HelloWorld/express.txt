@@ -17,5 +17,12 @@ npm install 시에 의존성들을 로드해줌
 --------------------------- require
 require(node_modules)가 생략됨, 'express'만 써주는 이유.
 
------ express에서 
+----- express에서 QueryString.. 등 요청 값 받기
 req.query.name과 req.param("name" 둘다 사용가능, 똑같은 이유
+
+
+----------------------------- RestAPI
+app.get('/blog/:category/:id', (req, res) => {
+	자동으로 매핑시켜줌 
+	category = req.params.category
+});
