@@ -26,3 +26,27 @@ app.get('/blog/:category/:id', (req, res) => {
 	자동으로 매핑시켜줌 
 	category = req.params.category
 });
+
+----------- supervisor (AUTO_RELOAD)
+npm i -g supervisor
+-g 옵션 ( 모든 애플리케이션에 대해서 적용함 )
+글로벌 옵션은 의존성 파일에 추가되지않는다.
+
+---- scripts 지정시
+"start": "supervisor app2" 추가해주면
+npm start 시 해당 스크립트 호출
+
+---------------------------- 정적파일 
+// 정적 폴더 지정, client가 접근 가능한 정적폴더로 만들어준다.
+app.use("/", express.static("./public"));
+
+링크로 접근하면 public directory로 redirecting 해줌
+
+-------------------------- post는 body로 받아야함
+// 미들웨어를 사용해서 받아야함
+app.use도 미들웨어에 해당 
+// 미들웨어 사용 시 use 사용 POST데이터를 알아서 파싱해줌
+app.use(bodyParser.json()); // 클라이언트 json 파싱 
+app.use(bodyParser.urlencoded({extended: false})); // 포스트 방식으로 넘어온 데이터를 enctype multipart 안쓰겠다
+
+이렇게되면 req.body.값 사용이 가능하다.
