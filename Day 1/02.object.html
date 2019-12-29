@@ -1,0 +1,94 @@
+<script>
+
+let obj = (
+	()=>
+	{
+		console.log(10 + 20);
+	}
+)();
+
+const Obj2 = (()=>{
+	a = 0;
+	b = 0;
+	function Obj2() {
+		// Constructor
+		a = 10;
+		b = 20;
+	}
+	Obj2.prototype.sum = () => {
+		return this.a + this.b;
+	}
+	Obj2.prototype.print = () => {
+		console.log( this.a + this.b );
+	}
+
+	return Obj2;
+})();
+
+const Obj3 = new Obj2();
+Obj3.sum();
+Obj3.print();
+
+
+//ES6
+class Human
+{
+	constructor(name, age)
+	{
+		this.name = name;
+		this.age = age;
+	}
+
+	showInfo()
+	{
+		return `${this.name}은(는)${this.age}입니다.`;
+	}
+
+}
+const user = new Human("홍길동", 30);
+console.log(user.showInfo());
+
+const fn = a => a + 10;
+console.log(fn(30));
+
+
+const obj4 = {
+	name : "홍길동",
+	age : 29
+}
+console.log(Object.keys(obj4));
+console.log(Object.values(obj4));
+
+for(let [key, value] of Object.entries(obj4))
+{
+	console.log(`${key}: ${value}`);
+}
+
+const set = new Set();
+set.add("A");
+set.add("B");
+console.log(set);
+
+const map = new Map();
+map.set("k1", "홍길동");
+map.set(0, 22);
+map.set(1, () => {});
+map.set("k2", "홍길만");
+
+for(let [key, value] of map)
+{
+	console.log(`${key}: ${value}`);	
+}
+
+for(let key of map.keys())
+{
+	console.log(`${key}`);
+}
+
+for(let v of map.values())
+{
+	console.log(v);
+}
+console.log(map.get("k2"));
+
+</script>

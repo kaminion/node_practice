@@ -1,3 +1,31 @@
 <script>
-	let a = 10;
+	
+	const arr = [1, 2, 3, 4, 5];
+	const arr2 = arr.map( x => {
+		if(x === 2) return 10;
+		return x;
+	});
+
+	const arr3 = [
+		{name : "hong", age : 25},
+		{name : "hong1", age : 26},
+		{name : "hong2", age : 27},
+		{name : "hong3", age : 28},
+		{name : "hong4", age : 29},
+		{name : "hong5", age : 30},
+	];
+
+	const arr4 = arr3.filter((item) =>{
+		if(item.age < 27) return item;
+
+	})
+
+	console.log(arr2);
+	console.log(arr4);
+
+	arr4.forEach( object => {
+		console.log(object);
+	});
+
+
 </script>

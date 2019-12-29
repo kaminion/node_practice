@@ -5,5 +5,45 @@ common JS(Vanila JavaScript) 지원
 
 node v8 v10 차이
 - 비동기처리와 프로미스 패턴에 대한 메서드 지원범위가 조금 다르다.
+콜백은 전부 비동기처리
 
-ES6에 관한 내용 학습
+
+VSCODE 플러그인
+Auto Rename Tag
+Beautify
+Live Server
+IntelliSense for CSS class names in HTML
+
+배열 첫주소는 고정값이니 const로 지정해도 될듯
+
+foreach문 
+index값 기준
+for(let i in arr)
+{
+}
+
+인덱스가 아닌 실제값을 기준으로 내보냄
+for (let v of arr)
+{
+}
+
+
+template string기능
+`${this.name}은(는) `
+EL문법처럼 사용가능
+
+arrow function에서 한줄이면 return 생략 가능
+
+
+Object 객체는 유틸처럼 사용하는 method존재, keys(), values() 메서드
+객체의 키와 밸류만 찍기가능
+
+
+for(let [key, value] of Object.entries(obj4))
+{
+	console.log(`${key}: ${value}`);
+}
+이런 코드도 가능
+
+자바스크립트 SET
+얘도 set에 iterator 존재
