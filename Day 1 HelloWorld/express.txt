@@ -1,0 +1,21 @@
+npm 은 노드 패키지 매니저 
+npm이 의존성 추가를 시켜줌 
+
+의존성관리는 package.json에서 가능
+
+npm init -y (초기 세팅을 알아서 해줌)
+그 후 npm i express
+multer
+morgan
+pug
+
+------------------ maven이나 Gradle의 역할
+의존성 관리파일(package.json)만 있으면 
+npm install 시에 의존성들을 로드해줌 
+
+
+--------------------------- require
+require(node_modules)가 생략됨, 'express'만 써주는 이유.
+
+----- express에서 
+req.query.name과 req.param("name" 둘다 사용가능, 똑같은 이유
