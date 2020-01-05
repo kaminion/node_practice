@@ -27,3 +27,5 @@ util.promisify(original)
 
 Custom promisified functions
 util.promisify.custom 
+
+await는 promise객체 반환하는 함수만 사용가능할 수 있다.
