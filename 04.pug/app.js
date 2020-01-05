@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const host = '127.0.0.1';
+const axios = require("axios");
 
 app.listen(port, ()=>{
 	console.log(`http://${host}:${port}`);
@@ -10,7 +11,9 @@ app.listen(port, ()=>{
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-app.use("/", express.static("./public")); 
+app.use("/", express.static("./public"));
+app.use("/public/css", express.static("./public/css")); 
+
 app.use(express.json()); 
 app.use(express.urlencoded({extenede: false}));
 
@@ -27,6 +30,18 @@ app.get(["/pug", "/pug/:page"], (req, res) => {
 		case "list": 
 			vals.title = "게시글 리스트 입니다.";
 			vals.small = "게시판 리스트";
+			vals.lists = [{
+				id:1, title: "첫번째 글", writer: "관리자",
+				wdate: "2020-01-03", rnum: 5
+			},
+			{
+				id:2, title: "두번째 글", writer: "관리자",
+				wdate: "2020-01-04", rnum: 6
+			},
+			{
+				id:3, title: "세번째 글", writer: "관리자",
+				wdate: "2020-01-05", rnum: 4
+			}];
 			filename = "list.pug";
 		break;
 		case "write": 

@@ -11,3 +11,5 @@ block 영역표시
 
 사용시 맨 상단에 상속키워드 extends 경로 ( String 형태로 쓰지않음 )
 똑같이 block 명시 후 들여쓰기에 맞춰 작성
+
+실제 개발은 layout -> include 순
