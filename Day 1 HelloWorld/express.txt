@@ -39,6 +39,7 @@ npm start 시 해당 스크립트 호출
 ---------------------------- 정적파일 
 // 정적 폴더 지정, client가 접근 가능한 정적폴더로 만들어준다.
 app.use("/", express.static("./public"));
+use는 해당되는 function으로 인계
 
 링크로 접근하면 public directory로 redirecting 해줌
 
@@ -54,3 +55,18 @@ app.use(bodyParser.urlencoded({extended: false})); // 포스트 방식으로 넘어온 데�
 ------ 자동생성(템플릿) express-generator
 npm i -g express-generator
 express --view=pug [directory.name]
+
+----------------- pug는 template 엔진
+react, view 등 템플릿에 대해 더 쉬운개발 
+
+미들웨어가 아닌건 set으로 세팅해줘야함
+뷰엔진 세팅
+app.set("view engine", "pug");
+app.set("views", "./views") // 뷰를 나타내는 것은 이 폴더에 담겨있다.
+
+받아야하는 미들웨어에서 res.render()메서드로 받아낸다.
+(자세한 경로내용이 없음.) view로 지정한거에서 알아서 써냄
+
+------------------------ 자바스크립트 객체를 생성 후 view template 엔진에 이관
+res.render의 2번째 인자로 객체를 보내줌
+렌더링 뷰에서 element= 넘겨주는 변수명 
