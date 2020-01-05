@@ -3,6 +3,9 @@ const app = express();
 const port = 3000;
 const host = '127.0.0.1';
 const axios = require("axios");
+// 비구조할당문법
+const {mysql, conn} = require("./mysql-con");
+
 
 app.listen(port, ()=>{
 	console.log(`http://${host}:${port}`);
@@ -55,5 +58,18 @@ app.get(["/pug", "/pug/:page"], (req, res) => {
 	}
 
 	res.render(filename, vals);
+}); // END OF PUG
 
-})
+app.get("/sqltest", (req, res) => {
+	let connection = conn.getConnection((err, connect)=>{
+		if(err) res.send("DB 접속실패");
+
+		let sql = "INSERT INTO BOARD SET title='테스트입니다.', writer='관리자', wdate='2020-01-06' ";
+		connect.query(sql, (err, result) => {
+			if(err) res.send("쿼리 실패");
+			res.json(result);
+	
+		});
+		
+	});
+});
