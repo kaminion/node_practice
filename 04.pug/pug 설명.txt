@@ -1,0 +1,13 @@
+속성은 element 뒤에 바로 ()
+그 후 = 변수명 (퍼그에서 두번째인자로 객체 넘겨준 객체안 속성)
+
+layout과 include 
+
+include - head.pug / footer.pug
+
+--------------- layout
+layout - 닫기태그랑 같이 만들어지기때문에 문법적 모호성을 해결하기 위함 
+block 영역표시
+
+사용시 맨 상단에 상속키워드 extends 경로 ( String 형태로 쓰지않음 )
+똑같이 block 명시 후 들여쓰기에 맞춰 작성

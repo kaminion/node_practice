@@ -78,7 +78,7 @@ app.post("/user", (req,res) => {
 });
 
 
-
-
-
 ~~~
+위엔 안적었지만 pug도 내장
+pacakge json에서 entry point 스크립트로 지정
+npm start를 제외하곤 npm run
