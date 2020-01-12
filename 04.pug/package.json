@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "supervisor app",
+    "dev": "supervisor app2",
     "start": "node app",
     "build": "pm2 start app",
     "test": "echo \"Error: no test specified\" && exit 1"
