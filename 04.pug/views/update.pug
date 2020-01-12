@@ -1,0 +1,15 @@
+extends ./layout/board.pug
+
+block content
+	form(method="post" name="updateForm" action="/pug/update" onsubmit="return upData();")
+		input(type="hidden" name="id" value=`${lists.id}`)
+		.p-3
+			input.form-control(type="text" name="title" value=`${lists.title}`)
+			b= lists.title
+		.p-3.my-2= lists.writer
+		.p-3.my-3
+			textarea.form-control(name="content")= lists.content
+		.p-3.text-center
+			button.btn.btn-primary#btSav 저장
+			button.btn.btn-danger#btDelete(type="reset") 초기화
+			button.btn.btn-success#btList(type="button") 리스트

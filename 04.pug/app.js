@@ -135,5 +135,12 @@ app.get("/pug/delete/:id", async (req, res) => {
 	const connect = await pool.getConnection();
 	const result = await connect.query(sql, vals);
 
-	res.redirect("/pug");
+	// JSON으로 넘어오는 affectedRows의 여부에 따라 성공/실패가 갈림, 0개면 지워진게 없는 것
+
+	if(result[0].affectedRows > 0) res.redirect("/pug");
+	else{
+		res.send("삭제에 실패하였습니다.");
+	}
+	connect.release();
+	
 })
