@@ -6,6 +6,7 @@ const axios = require("axios");
 // 비구조할당문법
 const {pool, sqlErr} = require("./mysql-con");
 
+// 미들웨어 라우터 
 
 app.listen(port, ()=>{
 	console.log(`http://${host}:${port}`);
@@ -18,6 +19,7 @@ app.use("/", express.static("./public"));
 app.use("/public/css", express.static("./public/css")); 
 
 app.use(express.json()); 
+// 계층구조를 통신으로 받으면 true
 app.use(express.urlencoded({extenede: false}));
 
 app.locals.pretty = true;
@@ -27,6 +29,7 @@ app.get(["/pug", "/pug/:page"], async (req, res) => {
 
 	let vals = {};
 	let filename = "";
+	let sql = "";
 
 	switch(page)
 	{
@@ -45,17 +48,30 @@ app.get(["/pug", "/pug/:page"], async (req, res) => {
 			// 	id:3, title: "세번째 글", writer: "관리자",
 			// 	wdate: "2020-01-05", rnum: 4
 			// }];
-			let sql = "SELECT id, title, writer, wdate, rnum FROM board ORDER BY id DESC";
+			sql = "SELECT id, title, writer, wdate, rnum, content FROM board ORDER BY id DESC";
 			const conn = await pool.getConnection();
 			const result = await conn.query(sql);
 			vals.lists = result[0];
 			filename = "list.pug";
-
+			conn.release();
 		break;
 		case "write": 
 			vals.title = "게시글 작성입니다.";
 			vals.small = "게시글 작성";
 			filename = "write.pug";
+
+		case "view":
+			vals.title = "게시글 상세보기입니다.";
+			vals.small = "게시글 상세보기";
+			filename = "view.pug";
+			sql = "SELECT writer, title, wdate, content FROM board WHERE id=?";
+			let sqlVals = [req.query.id];
+			const viewCon = await pool.getConnection();
+			const viewResu = await viewCon.query(sql, sqlVals);
+
+			vals.lists = viewResu[0][0];
+			viewCon.release();
+
 		break;
 		default:
 			res.redirect("/");
@@ -97,10 +113,12 @@ app.get("/sqltest", async (req, res) => {
 	
 });
 
+// sql val 부분 참고 물음표에 따라 동적으로 정해 줄 수 있다.
 app.post("/board", async (req, res)=>{
-	let sql = "INSERT INTO board SET title=?, writer=?, wdate=?";
-	let val = [req.body.title, req.body.writer, new Date()];
+	let sql = "INSERT INTO board SET title=?, writer=?, wdate=?, content=?";
+	let val = [req.body.title, req.body.writer, new Date(), req.body.content];
 	const connect = await pool.getConnection();
 	const result = await connect.query(sql, val);
+	connect.release();
 	res.redirect("/pug");
 })

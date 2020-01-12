@@ -13,7 +13,8 @@ block content
 				each list in lists
 					tr
 						td= list.id
-						td= list.title
+						td
+							a(href=`/pug/view?id=${list.id}`)= list.title
 						td= list.writer
 						td= list.wdate
 						td= list.rnum
