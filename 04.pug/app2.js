@@ -1,14 +1,12 @@
 const express = require('express');
+const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
 const host = '127.0.0.1';
 const axios = require("axios");
 
-//라우터 가져오기
-const pugRouter = require("./router/pug");
-// 라우터 연결
-app.use("/pug", pugRouter);
 
+// 아래 라우터있음
 app.listen(port, ()=>{
 	console.log(`http://${host}:${port}`);
 });
@@ -23,7 +21,26 @@ app.use(express.json());
 // 계층구조를 통신으로 받으면 true
 app.use(express.urlencoded({extenede: false}));
 
+// AJAX에서는 불필요하다 methodOVerride
+// app.use(methodOverride(function (req, res) {
+// 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+// 	  // look in urlencoded POST bodies and delete it
+// 	  var method = req.body._method
+// 	  delete req.body._method
+// 	  return method
+// 	}
+//   }))
+
 app.locals.pretty = true;
+//라우터 가져오기
+const pugRouter = require("./router/pug");
+// 라우터 연결 미들웨어 거쳐야함 express josn이나 urlencoded..
+app.use("/pug", pugRouter);
+
+// api 라우터 연결
+const apiRouter = require("./router/api");
+app.use("/api", apiRouter);
+
 
 // mysql-2 promise pattern
 app.get("/sqltest", async (req, res) => {

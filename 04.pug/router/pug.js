@@ -90,11 +90,13 @@ router.get(["/", "/:page"], async (req, res) => {
 
 // sql val 부분 참고 물음표에 따라 동적으로 정해 줄 수 있다.
 router.post("/create", async (req, res)=>{
+	
 	let sql = "INSERT INTO board SET title=?, writer=?, wdate=?, content=?";
 	let val = [req.body.title, req.body.writer, new Date(), req.body.content];
 	const connect = await pool.getConnection();
 	const result = await connect.query(sql, val);
 	connect.release();
+	
 	res.redirect("/pug");
 })
 
@@ -134,7 +136,7 @@ router.get("/update/:id", async (req, res) => {
 });
 
 router.post("/update", async (req, res) =>{
-
+	
 	const id = req.body.id;
 	const content = req.body.content;
 	const title = req.body.title;
@@ -146,7 +148,6 @@ router.post("/update", async (req, res) =>{
 	];
 
 	const sql = "UPDATE board SET title=?, content=? WHERE id=?";
-
 	const conn = await pool.getConnection();
 	const result = await conn.query(sql, vals);
 

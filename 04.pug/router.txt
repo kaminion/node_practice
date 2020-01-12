@@ -19,3 +19,7 @@ const pugRouter = require("./router/pug");
 app.use("/router", pugRouter);
 
 /router 이하의 코드들은 저쪽으로 forwarding시켜준다
+
+
+use (미들웨어)
+request시 filter역할을 함
