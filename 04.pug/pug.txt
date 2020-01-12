@@ -1,0 +1,11 @@
+//pug view engine setup(위에선언)
+app.set('views', '디렉토리')
+app.set('view engine', 'pug')
+
+// pug 내부
+탭을 맞춰줌
+html= 변수명
+
+
+사용법 디렉토리 내에 있는 파일 이름적어줌
+res.render('파일이름', 객체(렌더링시켜줄)) // .pug생략
