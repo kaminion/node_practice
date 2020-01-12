@@ -1,10 +1,11 @@
 extends ./layout/board.pug
 
 block content
-	.border.border-primary.rounded.p-3= lists.title
+	.border.border-primary.rounded.p-3
+		b= lists.title
 	.border.border-primary.rounded.p-3.my-2= lists.writer
 	.border.border-primary.rounded.p-3.my-3= lists.content
 	.p-3.text-center
-		button.btn.btn-primary#btUpdate 수정
-		button.btn.btn-danger#btDelete 삭제
+		button.btn.btn-primary#btUpdate(data-id=`${lists.id}`) 수정
+		button.btn.btn-danger#btDelete(data-id=`${lists.id}`) 삭제
 		button.btn.btn-success#btList 리스트

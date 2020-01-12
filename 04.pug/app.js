@@ -54,25 +54,28 @@ app.get(["/pug", "/pug/:page"], async (req, res) => {
 			vals.lists = result[0];
 			filename = "list.pug";
 			conn.release();
-		break;
+			break;
+
 		case "write": 
 			vals.title = "게시글 작성입니다.";
 			vals.small = "게시글 작성";
 			filename = "write.pug";
-
+			break;
+		
+		// 나중에 여기 너무 많은 로직이 들어가있어서 차라리 분리해주는게 나을 수도 있다.
 		case "view":
 			vals.title = "게시글 상세보기입니다.";
 			vals.small = "게시글 상세보기";
 			filename = "view.pug";
-			sql = "SELECT writer, title, wdate, content FROM board WHERE id=?";
+			sql = "SELECT id, writer, title, wdate, content FROM board WHERE id=?";
 			let sqlVals = [req.query.id];
 			const viewCon = await pool.getConnection();
 			const viewResu = await viewCon.query(sql, sqlVals);
 
 			vals.lists = viewResu[0][0];
 			viewCon.release();
+			break;
 
-		break;
 		default:
 			res.redirect("/");
 			break;
@@ -120,5 +123,17 @@ app.post("/board", async (req, res)=>{
 	const connect = await pool.getConnection();
 	const result = await connect.query(sql, val);
 	connect.release();
+	res.redirect("/pug");
+})
+
+// 위에 view도 이런식으로 분리하면 좋지않을까?
+app.get("/pug/delete/:id", async (req, res) => {
+	let id = req.params.id;
+	let sql = "DELETE FROM board WHERE id=?";
+	let vals = [id];
+
+	const connect = await pool.getConnection();
+	const result = await connect.query(sql, vals);
+
 	res.redirect("/pug");
 })
