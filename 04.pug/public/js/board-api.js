@@ -24,6 +24,7 @@ $("#btSave").click(function(){
 		success: function (res){
 			console.log("성공");
 			document.form1.reset();
+			document.form1.id.value = null;
 			getData();
 		},
 		error: function(xhr){
