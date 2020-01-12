@@ -144,3 +144,47 @@ app.get("/pug/delete/:id", async (req, res) => {
 	connect.release();
 	
 })
+
+app.get("/pug/update/:id", async (req, res) => {
+	const id = req.params.id;
+	const vals = {
+		title: "게시글 수정"
+	};
+	const sql = "SELECT * FROM board WHERE id=" + id;
+	
+	const connect = await pool.getConnection();
+	const result  = await connect.query(sql);
+
+	vals.lists = result[0][0];
+	connect.release();
+
+	res.render("update.pug", vals);
+});
+
+app.post("/pug/update", async (req, res) =>{
+
+	const id = req.body.id;
+	const content = req.body.content;
+	const title = req.body.title;
+
+	const vals = [
+		title,
+		content,
+		id
+	];
+
+	const sql = "UPDATE board SET title=?, content=? WHERE id=?";
+
+	const conn = await pool.getConnection();
+	const result = await conn.query(sql, vals);
+
+	conn.release();
+
+	if(result[0].changedRows != 0)
+	{
+		res.redirect("/pug");
+	}else{
+		res.send("수정에 실패하였습니다.");
+	}
+
+});
