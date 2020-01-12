@@ -5,9 +5,6 @@ const host = '127.0.0.1';
 const axios = require("axios");
 // 비구조할당문법
 const {pool, sqlErr} = require("./mysql-con");
-// 라우터 작동
-const pugRouter = require("./router/pug");
-app.use("/router", pugRouter);
 
 // 미들웨어 라우터 
 
