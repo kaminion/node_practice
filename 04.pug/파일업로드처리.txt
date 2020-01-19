@@ -1,3 +1,11 @@
 multer 모듈을 사용하여 처리함
 
 멀터모듈을 받을때 미들웨어 반환(use)
+* 미들웨어는 필터같은 역할
+
+
+npm i multer
+
+var storage = multer.storage({destinationcb, filename cb});
+var upload = multer({storage});
+app.post("경로", upload.single("파일필드명), (req, res) => {});

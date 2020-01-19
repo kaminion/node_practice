@@ -1,5 +1,6 @@
 const express = require('express');
 const methodOverride = require('method-override');
+const path = require('path');
 const app = express();
 const port = 3000;
 const host = '127.0.0.1';
@@ -15,7 +16,9 @@ app.set("view engine", "pug");
 app.set("views", "./views");
 
 app.use("/", express.static("./public"));
-app.use("/public/css", express.static("./public/css")); 
+app.use("/public/css", express.static(path.join(__dirname, "./public/css"))); 
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
+
 
 app.use(express.json()); 
 // 계층구조를 통신으로 받으면 true
@@ -33,12 +36,12 @@ app.use(express.urlencoded({extenede: false}));
 
 app.locals.pretty = true;
 //라우터 가져오기
-const pugRouter = require("./router/pug");
+const pugRouter = require(path.join(__dirname, "./router/pug"));
 // 라우터 연결 미들웨어 거쳐야함 express josn이나 urlencoded..
 app.use("/pug", pugRouter);
 
 // api 라우터 연결
-const apiRouter = require("./router/api");
+const apiRouter = require(path.join(__dirname, "./router/api"));
 app.use("/api", apiRouter);
 
 
@@ -58,3 +61,4 @@ app.get("/sqltest", async (req, res) => {
 	}
 	
 });
+

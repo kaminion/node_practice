@@ -1,7 +1,7 @@
 extends ./layout/board.pug
 block content
 	.write-wrap
-		form(action="/pug/create" method="post" name="writeForm")
+		form(action="/pug/create" method="post" name="writeForm" enctype="multipart/form-data")
 			table.table.table-bordered
 				tbody
 					tr

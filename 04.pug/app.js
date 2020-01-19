@@ -20,6 +20,7 @@ app.set("views", "./views");
 
 app.use("/", express.static("./public"));
 app.use("/public/css", express.static("./public/css")); 
+app.use('/uploads', express.static('./uploads'));
 
 app.use(express.json()); 
 // 계층구조를 통신으로 받으면 true

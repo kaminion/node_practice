@@ -4,6 +4,9 @@ const express = require("express");
 const router  = express.Router();
 // 비구조할당문법
 const {pool, sqlErr} = require("../modules/mysql-con");
+const path = require('path');
+const { storage } = require(path.join(__dirname, '../modules/multer-conn'));
+
 
 
 /**  /pug/update/4 으로 들어온다고 치면 
@@ -14,7 +17,8 @@ const {pool, sqlErr} = require("../modules/mysql-con");
 */
 router.get(["/", "/:page"], async (req, res) => {
 	let page = req.params.page ? req.params.page : "list";
-
+	// 상수
+	// console.log(__dirname);
 	let vals = {};
 	let filename = "";
 	let sql = "";
@@ -92,10 +96,12 @@ router.get(["/", "/:page"], async (req, res) => {
 
 
 // sql val 부분 참고 물음표에 따라 동적으로 정해 줄 수 있다.
-router.post("/create", async (req, res)=>{
+router.post("/create", storage.single("upfile"), async (req, res)=>{
 	
-	let sql = "INSERT INTO board SET title=?, writer=?, wdate=?, content=?";
-	let val = [req.body.title, req.body.writer, new Date(), req.body.content];
+	// filename의 경우 미들웨어를 거쳐 정제된 파일이름
+
+	let sql = "INSERT INTO board SET title=?, writer=?, wdate=?, content=?, orifile=?, realfile=?";
+	let val = [req.body.title, req.body.writer, new Date(), req.body.content, req.file.originalname, req.file.filename];
 	const connect = await pool.getConnection();
 	const result = await connect.query(sql, val);
 	connect.release();
