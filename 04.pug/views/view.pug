@@ -5,6 +5,13 @@ block content
 		b= lists.title
 	.border.border-primary.rounded.p-3.my-2= lists.writer
 	.border.border-primary.rounded.p-3.my-3= lists.content
+	if fileChk == "img"
+		.border.border-primary.rounded.p-3.my-3
+			img(src=`${href}`)
+	else if(fileChk == "file")
+		.border.border-primary.rounded.p-3.my-3
+			a(href=`${href}`)
+
 	.p-3.text-center
 		button.btn.btn-primary#btUpdate(data-id=`${lists.id}`) 수정
 		button.btn.btn-danger#btDelete(data-id=`${lists.id}`) 삭제

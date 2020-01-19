@@ -14,7 +14,12 @@ block content
 					tr
 						td= list.id
 						td
-							a(href=`/pug/view?id=${list.id}`)= list.title
+							- //if(list.realfile !== ""){
+							- // 자바스크립트 영역은 맨 앞에 스코어를 붙여준다.
+							- //}
+							a(href=`/pug/view?id=${list.id}`)= list.title 
+							if list.fileIcon
+								i.fa.fa-file.ml-3
 						td= list.writer
 						td= list.wdate
 						td= list.rnum

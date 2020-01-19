@@ -19,9 +19,35 @@ const filename = (req, file, cb) =>
 	cb(null, getFile(file.originalname).newName);
 }
 
+// Extention Check
+const fileFilter = (req, file, cb) =>
+{
+
+	// 정규표현식
+	let regEx = new RegExp(".jpe?g");
+	let ext = path.extname(file.originalname).toLowerCase();
+	
+	// 배열로 배열 indexOf >-1 조건체크도 됨
+
+	if(!regEx.test(ext))
+	{
+		req.fileUploadChk = false;
+		// reject
+		console.log("reject" + regEx.exec(ext));
+		cb(null, false);
+	}else
+	{
+		req.fileUploadChk = true;
+		// success
+		console.log("success" + regEx.exec(ext));
+		cb(null, true);
+	}
+
+}
+
 // 키와 value(변수) 이름이 같으면 :로 굳이 표현해주지않아도된다.
 const storage = multer.diskStorage({ destination, filename });
-const upload = multer({storage});
+const upload = multer({storage, fileFilter});
 
 function getPath()
 {

@@ -41,10 +41,18 @@ router.get(["/", "/:page"], async (req, res) => {
 			// 	id:3, title: "세번째 글", writer: "관리자",
 			// 	wdate: "2020-01-05", rnum: 4
 			// }];
-			sql = "SELECT id, title, writer, wdate, rnum, content FROM board ORDER BY id DESC";
+			sql = "SELECT * FROM board ORDER BY id DESC";
 			const conn = await pool.getConnection();
 			const result = await conn.query(sql);
+			
+			// 객체는 참조형이라 그런가?
+			for(let v of result[0])
+			{
+				// ==="" 과 null을 같이 처리하는 방법
+				if(v.realfile) v.fileIcon = true; 
+			}
 			vals.lists = result[0];
+			
 			filename = "list.pug";
 			conn.release();
 			break;
@@ -61,13 +69,29 @@ router.get(["/", "/:page"], async (req, res) => {
 			vals.title = "게시글 상세보기입니다.";
 			vals.small = "게시글 상세보기";
 			filename = "view.pug";
-			sql = "SELECT id, writer, title, wdate, content FROM board WHERE id=?";
+			sql = "SELECT * FROM board WHERE id=?";
 			let sqlVals = [req.query.id];
 			const viewCon = await pool.getConnection();
 			const viewResu = await viewCon.query(sql, sqlVals);
 			const rnumQuery = await viewCon.query(rnumUpdateSQL, sqlVals);
 
 			vals.lists = viewResu[0][0];
+			let regEx = new RegExp(".jpe?g");
+			let ext = path.extname(vals.lists.orifile).toLowerCase();
+			if(vals.lists.realfile)
+			{
+				let file = vals.lists.realfile.split("-");
+				vals.href = "/uploads/" + file[0] + "/" + vals.lists.realfile;
+
+				// 확장자 체크
+				if(regEx.test(ext)) vals.fileChk = "img";
+				else{
+					vals.fileChk = "file";
+				}
+			
+			}else {
+				vals.fileChk = "";
+			}
 			viewCon.release();
 			break;
 
@@ -75,7 +99,6 @@ router.get(["/", "/:page"], async (req, res) => {
 			res.redirect("/pug");
 			break;
 	}
-
 	res.render(filename, vals);
 }); // END OF PUG
 
@@ -97,11 +120,20 @@ router.get(["/", "/:page"], async (req, res) => {
 
 // sql val 부분 참고 물음표에 따라 동적으로 정해 줄 수 있다.
 router.post("/create", storage.single("upfile"), async (req, res)=>{
+
+	let oriFile = '';
+	let realFile = '';
+	let destination = '';
+	// multer-conn에서 지정해줬던 것 사용가능, 서버에서 예외처리
+	if(req.file)
+	{
+		oriFile = req.file.originalname;
+		realFile = req.file.filename;
+	}
 	
 	// filename의 경우 미들웨어를 거쳐 정제된 파일이름
-
 	let sql = "INSERT INTO board SET title=?, writer=?, wdate=?, content=?, orifile=?, realfile=?";
-	let val = [req.body.title, req.body.writer, new Date(), req.body.content, req.file.originalname, req.file.filename];
+	let val = [req.body.title, req.body.writer, new Date(), req.body.content, oriFile, realFile];
 	const connect = await pool.getConnection();
 	const result = await connect.query(sql, val);
 	connect.release();
