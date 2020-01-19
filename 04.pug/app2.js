@@ -44,6 +44,10 @@ app.use("/pug", pugRouter);
 const apiRouter = require(path.join(__dirname, "./router/api"));
 app.use("/api", apiRouter);
 
+// user라우터 연결
+const userRouter = require(path.join(__dirname, "./router/user"));
+app.use("/user", userRouter);
+
 
 // mysql-2 promise pattern
 app.get("/sqltest", async (req, res) => {

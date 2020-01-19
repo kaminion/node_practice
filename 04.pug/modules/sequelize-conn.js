@@ -12,10 +12,10 @@ const sequelize = new Sequelize({
 	}
 });
 
-(async ()=>{
-	await sequelize.authenticate();
-	console.log("success");
-	
-})();
+// (async ()=>{
+// 	await sequelize.authenticate();
+// 	console.log("success");
+
+// })();
 
 module.exports = {sequelize, Sequelize};
