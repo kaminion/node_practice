@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { pool, sqlErr } = require("../mysql-con");
+const { pool, sqlErr } = require("../modules/mysql-con");
 
 
 /* 

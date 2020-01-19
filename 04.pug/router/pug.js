@@ -3,7 +3,7 @@ const express = require("express");
 // 라우터 객체로 불러옴
 const router  = express.Router();
 // 비구조할당문법
-const {pool, sqlErr} = require("../mysql-con");
+const {pool, sqlErr} = require("../modules/mysql-con");
 
 
 /**  /pug/update/4 으로 들어온다고 치면 
@@ -18,6 +18,7 @@ router.get(["/", "/:page"], async (req, res) => {
 	let vals = {};
 	let filename = "";
 	let sql = "";
+	// console.log(req.ip);
 
 	switch(page)
 	{
@@ -52,6 +53,7 @@ router.get(["/", "/:page"], async (req, res) => {
 		
 		// 나중에 여기 너무 많은 로직이 들어가있어서 차라리 분리해주는게 나을 수도 있다.
 		case "view":
+			let rnumUpdateSQL = "UPDATE board SET rnum = rnum + 1 WHERE id=?";
 			vals.title = "게시글 상세보기입니다.";
 			vals.small = "게시글 상세보기";
 			filename = "view.pug";
@@ -59,6 +61,7 @@ router.get(["/", "/:page"], async (req, res) => {
 			let sqlVals = [req.query.id];
 			const viewCon = await pool.getConnection();
 			const viewResu = await viewCon.query(sql, sqlVals);
+			const rnumQuery = await viewCon.query(rnumUpdateSQL, sqlVals);
 
 			vals.lists = viewResu[0][0];
 			viewCon.release();
