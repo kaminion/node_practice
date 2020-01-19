@@ -10,4 +10,6 @@ var storage = multer.storage({destinationcb, filename cb});
 var upload = multer({storage});
 app.post("경로", upload.single("파일필드명), (req, res) => {});
 
-file filter로 확장자 처리 (정규식으로 여기 전처리 해주는듯)
+file filter로 확장자 처리 (정규식으로 여기서 전처리 해준다)
+
+multer s3도 있고 azure것도 있음

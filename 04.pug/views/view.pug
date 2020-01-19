@@ -7,10 +7,10 @@ block content
 	.border.border-primary.rounded.p-3.my-3= lists.content
 	if fileChk == "img"
 		.border.border-primary.rounded.p-3.my-3
-			img(src=`${href}`)
+			img.mw-100(src=`${href}`)
 	else if(fileChk == "file")
 		.border.border-primary.rounded.p-3.my-3
-			a(href=`${href}`)
+			a(href=`/pug/downloads/${lists.id}`)= lists.orifile
 
 	.p-3.text-center
 		button.btn.btn-primary#btUpdate(data-id=`${lists.id}`) 수정

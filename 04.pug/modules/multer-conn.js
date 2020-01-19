@@ -24,7 +24,7 @@ const fileFilter = (req, file, cb) =>
 {
 
 	// 정규표현식
-	let regEx = new RegExp(".jpe?g");
+	let regEx = new RegExp(".jpe?g || .psd");
 	let ext = path.extname(file.originalname).toLowerCase();
 	
 	// 배열로 배열 indexOf >-1 조건체크도 됨

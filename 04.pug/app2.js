@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 const host = '127.0.0.1';
 const axios = require("axios");
-
+const User = require(path.join(__dirname, "./models/User"));
 
 // 아래 라우터있음
 app.listen(port, ()=>{
@@ -61,4 +61,5 @@ app.get("/sqltest", async (req, res) => {
 	}
 	
 });
+
 

@@ -1,0 +1,30 @@
+ORM 매핑
+
+Sequelize 모듈 sequelize, sequleize-cli(얘는 글로벌로 설치) 두개 설치
+sequelize init (얘가 글로벌 명령어니까..)
+
+생성되는 directory
+config/migrations/models
+
+migrations는 잘 안쓰임
+
+config - 서버접속내용
+
+models - 실 적용 데이터 모델
+index.js
+
+클래스 자체를 테이블로 취급함
+
+--save로 패키지 설치 시..
+
+dependency는 3가지 종류
+
+도스 어플리케이션임에도 불구하고 JS로 작성되어있음
+
+1. npm i -g
+글로벌옵션, 모든패키지에 일괄적용
+2. --save(-S)
+배포용, 생략가능
+
+3. --save-dev(-D)
+배포 시 필요하지않은것들은 Dev로 인스톨함 ex.sass-loader, boiler plate형 react에도 적용됨

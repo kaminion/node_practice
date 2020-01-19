@@ -2,6 +2,7 @@
 const express = require("express");
 // 라우터 객체로 불러옴
 const router  = express.Router();
+const datetime = require("date-time");
 // 비구조할당문법
 const {pool, sqlErr} = require("../modules/mysql-con");
 const path = require('path');
@@ -51,7 +52,11 @@ router.get(["/", "/:page"], async (req, res) => {
 				// ==="" 과 null을 같이 처리하는 방법
 				if(v.realfile) v.fileIcon = true; 
 			}
-			vals.lists = result[0];
+			resultData = result[0].map((v)=>{
+				v.wdate = datetime({date:v.wdate});
+				return v; 
+			})
+			vals.lists = resultData;
 			
 			filename = "list.pug";
 			conn.release();
@@ -87,6 +92,7 @@ router.get(["/", "/:page"], async (req, res) => {
 				if(regEx.test(ext)) vals.fileChk = "img";
 				else{
 					vals.fileChk = "file";
+					vals.href = vals.href.replace("uploads", "downloads");
 				}
 			
 			}else {
@@ -202,6 +208,22 @@ router.post("/update", async (req, res) =>{
 	}
 
 });
+
+// 다운로드 구현
+
+router.get("/downloads/:id", async (req, res) => {
+	let id = req.params.id;
+	let sql = "SELECT realfile, orifile FROM board WHERE id="+id;
+
+	const connect = await pool.getConnection();
+	const result = await connect.query(sql);
+
+	let filepath = path.join(__dirname, "../uploads/" + result[0][0].realfile.split("-")[0]);
+	let file = filepath + "/" + result[0][0].realfile;
+	res.download(file, result[0][0].orifile);
+
+});
+
 
 // 라우터등록
 module.exports = router;
