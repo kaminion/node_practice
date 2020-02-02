@@ -1,3 +1,5 @@
 express --view=pug (경로, 생성할 폴더)
 
 view엔진은 pug로 설정
+
+보일러 플레이트 작성후 npm i 필수

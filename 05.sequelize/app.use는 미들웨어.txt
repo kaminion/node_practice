@@ -1,0 +1,10 @@
+filter 역할
+
+next는 다음 미들웨어로 넘겨줌
+
+res.locals.변수명 (현재 미들웨어에서 등록)
+ // 위 메세지는 error.pug에 담겨져있다., response 객체에 전역등록
+
+res.status 등록도 가능
+
+모건을 미들웨어로 만드는 순간 연결 시마다 log를 찍음 

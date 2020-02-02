@@ -1,0 +1,8 @@
+프로세스 환경변수에 접근 가능하게 함 
+https://www.npmjs.com/package/dotenv
+
+require('dotenv').config() - 세팅
+
+루트에 .env 파일 생성(이게 프로세스 환경변수가 됨)
+
+이제 process.env.PORT 는 .env에 있는 키값을 불러오는 것을 알 수 있다.
