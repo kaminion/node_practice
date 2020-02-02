@@ -2,7 +2,7 @@ const path = require("path");
 // DB내부의 속성을 받을거니..
 const { sequelize, Sequelize } = require(path.join(__dirname, "../modules/sequelize-conn"));
 const Model = Sequelize.Model;
-
+// define 사용해도됨, 클래스 사용안하면
 class User extends Model
 {
 

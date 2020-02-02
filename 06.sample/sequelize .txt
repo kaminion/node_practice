@@ -1,0 +1,6 @@
+npm i sequelize -> sequelize init 
+
+sequelize db:migrate 이게 싱크를 대신함
+
+sequelize model:generate --name Sample --attributes title:String, comment:String, writer:String, rnum:Integer
+모델 생성법
