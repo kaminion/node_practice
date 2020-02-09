@@ -3,7 +3,7 @@ block content
 	.p-2.border
 		form(action="/board/update", method="post")
 			input(type="hidden" name="_method" value="put")
-			input(type="hidden" name="id")
+			input(type="hidden" name="id" id="id")
 			div.p-2.form-inline
 				input.form-control.mr-2(type="text" id="title" name="title")
 				input.form-control.mr-2(type="text" id="writer" name="writer")

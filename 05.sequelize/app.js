@@ -12,7 +12,7 @@ var boardRouter = require("./routes/board");
 
 var app = express();
 var {sequelize} = require("./models");
-sequelize.sync({forced:true});
+sequelize.sync({force: false}); // 싱크하는순간 만들어짐, 필수 (app.js 저장시 반영)
 var logDirectory = path.join(__dirname, 'log'); // 디렉토리 생성
 
 
@@ -41,7 +41,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev')); // 모건이 로그를 남김, 얜 없어도 됨 (터미널 전용)
-app.use(express.json());
+app.use(express.json()); // req.body parsing
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

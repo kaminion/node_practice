@@ -35,6 +35,15 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+// 관계 설정
+// 1대 다 관계, 서로 설정해주어야함 
+db.Member.hasMany(db.Post);
+db.Post.belongsTo(db.Member);
+
+// 다대다 관계 설정
+db.Post.belongsToMany(db.Hash, {through: 'post_hash'});
+db.Hash.belongsToMany(db.Post, {through: 'post_hash'});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

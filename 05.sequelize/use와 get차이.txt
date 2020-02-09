@@ -1,0 +1,6 @@
+use는 service라고 생각하면되고 (Servlet 기준)
+나머지는 동일 Http
+
+링크 지정 X 시 무조건 지나감 (url-mapping : /* )
+
+filter 처럼 3번쨰 인자에 next 설정하고 next 인자 호출해주면 됨
