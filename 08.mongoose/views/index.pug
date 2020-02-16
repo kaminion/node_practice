@@ -2,4 +2,11 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  div(style="max-width:900px; margin: auto;")
+  form(method="post" action="/user/save")
+    div(style="padding: 12px;")
+      input(type="text" name="name" placeholder="이름")
+    div(style="padding: 12px;")
+      input(type="number" name="age" placeholder="나이")
+    div(style="padding: 12px; text-align:center")
+      button 저장
