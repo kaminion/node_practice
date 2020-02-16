@@ -10,3 +10,14 @@ block content
       input(type="number" name="age" placeholder="나이")
     div(style="padding: 12px; text-align:center")
       button 저장
+  div(style="margin: 30px 0;")
+    table(style="border-collapse: collapse; border: 1px;")
+      tbody
+        each v in result
+          tr
+            td= v._id
+            td= v.name
+            td= v.age
+            td= v.createAt
+            td
+              a(href=`/user/delete/${v._id}`) 삭제

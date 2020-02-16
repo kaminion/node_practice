@@ -5,8 +5,11 @@ const { alert } = require('../modules/utils');
 const User = require("../schemas/user");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index.pug');
+router.get('/', async function(req, res, next) {
+  
+  const result = await User.find();
+  
+  res.render("index.pug", {result});
 });
 
 router.get("/sample", (req, res, next) => {
@@ -54,6 +57,21 @@ router.post("/user/save", async (req, res, next) => {
   }
 
 
+});
+
+// update
+// const result = User.update({조건절}, {}) ex 조건절 _id:req.params.id
+
+router.get("/user/delete/:id", async (req, res, next) => {
+
+  const result = await User.remove({
+    _id : req.params.id
+  });
+
+  if(result.ok === 1) res.redirect("/");
+  else res.send(alert("삭제에 실패했습니다.", "/"));
+
+  res.json(result);
 });
 
 module.exports = router;
