@@ -16,6 +16,7 @@ app.locals.pretty = true;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.set('trust proxy', 1);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -24,9 +25,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 세션 바꿀 필요 없으면 false
+
 app.use(session({
-  secret : 'my Salt!@#$',
-  resave: false,
+  secret : process.env.salt,
+  resave: true,
   saveUninitialized: true,
   store: new sessionStore()
 }) // saveUnitialized까지는 메모리상에 세션 생성, 

@@ -3,7 +3,18 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  // let sess = { 
+  //     userid : req.session.userid,
+  //     username : req.session.username,
+  //     grade : req.session.grade
+  //   };
+  // res.json(sess);
+  if(req.session.userid)
+  {
+    res.render('index', { title: 'Express' });
+  }else{
+    res.redirect("/user/login");   
+  }
 });
 
 module.exports = router;
